@@ -5,7 +5,26 @@ home
 {% endblock %}
 
 {% block content %}
-<h1>Home page</h1>
+<div class="container">
+ <div class="row">
+    {% for category in categories %}
 
+    <div class="col-md-6 mb-4"> <!-- Each card takes one-fourth of the screen width on medium-sized screens and above -->
+      <div class="card" style="width: 100%;">
+        <a href="{{category.get_url}}">
+          <img class="card-img-top" src="{{category.cart_image.url}}" alt="Card image cap"></a>
+          <div class="card-body">
+            <h5 class="card-title text-center"  >{{category.category_name}}</h5>
+            <b><p class="card-text text-center">Fresh, Organic Delights</p></b>
+            <p>{{category.description}}</p>
+            <!-- <a href="{{category.get_url}}" class="btn btn-primary">View</a> -->
+          </div>
+        
+      </div>
+    </div>
+
+    {% endfor %}
+ </div>
+</div>
 {% endblock %}
-<h1>hsuafgoy</h1>
+

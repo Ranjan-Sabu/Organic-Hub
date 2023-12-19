@@ -1,0 +1,240 @@
+
+{% extends 'user_template/base.html'%}
+
+
+{% block title %}
+checkout
+{% endblock %}
+
+{% block content %}
+<!-- <style>
+    @media (min-width: 1025px) {
+    .h-custom {
+     height: 100vh !important;
+    }
+   }  
+</style> -->
+<section class="h-100 h-custom" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card">
+            <div class="card-body p-4">
+  
+              <div class="row">
+               
+                <div class="col-lg-7">
+                  <h5 class="mb-3"><a href="{% url 'store' %}" class="text-body"><i
+                        class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                  <hr>
+  
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                      <p class="mb-1">Shopping cart</p>
+                      <p class="mb-0">You have {{cart_count}} items in your cart</p>
+                    </div>
+                    <div>
+                      <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
+                          class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
+                    </div>
+                  </div>
+  
+                  <div class="card mb-3">
+                    <div class="card-body">
+                        {% for cart_item in cart_items %}
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div>
+                                      <a href="{{ cart_item.product.get_url }}">
+                                        <img src="{{cart_item.product.image.url}}" class="img-fluid rounded-3"
+                                            alt="Shopping item" style="width: 65px;">
+                                      </a>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h5>{{cart_item.product_name}}</h5>
+                                        <p class="small mb-0">{{cart_item.category}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                  
+                                    <p class="form-control text-center">{{cart_item.quantity}} Kg</p>
+                                    
+                            </div>
+                            <div class="col-md-2">
+                                <h5 class="mb-0">₹ {{cart_item.sub_total}}</h5>
+                                <span class="small">₹ {{cart_item.product.price}}/kg</span>
+                            </div>
+                            
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+  
+                  
+  
+                </div>
+                <div class="col-lg-5">
+  
+                  <div class="card bg-primary text-white rounded-3">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0">Bill Details</h5>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                          class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
+                      </div>
+  
+                      <!-- <p class="small mb-2">Card type</p>
+                      <a href="#!" type="submit" class="text-white"><i
+                          class="fab fa-cc-mastercard fa-2x me-2"></i></a>
+                      <a href="#!" type="submit" class="text-white"><i
+                          class="fab fa-cc-visa fa-2x me-2"></i></a>
+                      <a href="#!" type="submit" class="text-white"><i
+                          class="fab fa-cc-amex fa-2x me-2"></i></a>
+                      <a href="#!" type="submit" class="text-white"><i class="fab fa-cc-paypal fa-2x"></i></a> -->
+   
+                      <form class="mt-4" action="{% url 'place_order' %}" method="POST">
+                        {% csrf_token %}
+  
+                        <div class="row mb-4">
+                          <div class="col-md-6">
+                            <div class="form-outline form-white">
+                              <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                               placeholder="First name" name="firstname" required />
+                              <label class="form-label" for="typeName">First name</label>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-outline form-white">
+                              <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                               placeholder="Last name" name="lastname" required/>
+                              <label class="form-label" for="typeName">Last name</label>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-outline form-white">
+                              <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                               placeholder="1234 567 890" minlength="10" maxlength="10" name="phone" required/>
+                              <label class="form-label" for="typeText">Phone Number</label>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-outline form-white">
+                              <input type="email" id="typeText" class="form-control form-control-lg" siez="17"
+                               placeholder="email"  name="email" required/>
+                              <label class="form-label" for="typeText">Email</label>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-outline form-white">
+                                <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                                 placeholder="City" name="city" required/>
+                                <label class="form-label" for="typeText">City</label>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-outline form-white">
+                              <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                               placeholder="State" name="state" required/>
+                              <label class="form-label" for="typeText">State</label>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-outline form-white">
+                              <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                               placeholder="Country" name="country" required/>
+                              <label class="form-label" for="typeText">Country</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-outline form-white">
+                            <textarea type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                             placeholder="Address" name="address" required></textarea>
+                            <label class="form-label" for="typeText">Address</label>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-outline form-white">
+                            <textarea type="" id="typeText" class="form-control form-control-lg" siez="17"
+                             placeholder="Note" name="order_note" ></textarea>
+                            <label class="form-label" for="typeText">notes</label>
+                          </div>
+                        </div>
+                      
+                       <hr class="my-4">   
+                       <div class="d-flex justify-content-between">
+                        <p class="mb-2">Total</p>
+                        <p class="mb-2">₹ {{total}}</p>
+                      </div>
+  
+                      <div class="d-flex justify-content-between">
+                        <p class="mb-2">Tax</p>
+                        <p class="mb-2">₹ {{tax}}</p>
+                      </div>
+                       <!-- <button id="rzp-button1" type="submit" class="btn btn-info btn-block btn-lg">
+                         <div class="d-flex justify-content-between">
+                           <span>₹ {{grand_total}}</span>&nbsp;&nbsp;
+                           <span>Place Order <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                         </div>
+                       </button> -->
+                       <button type="submit">place order</button>
+                      </form> 
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    var options = {
+        "key": "YOUR_KEY_ID", // Enter the Key ID generated from the Dashboard
+        "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Acme Corp",
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+            alert(response.razorpay_payment_id);
+            alert(response.razorpay_order_id);
+            alert(response.razorpay_signature)
+        },
+        "prefill": {
+            "name": "Gaurav Kumar",
+            "email": "gaurav.kumar@example.com",
+            "contact": "9000090000"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response){
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+    });
+    document.getElementById('rzp-button1').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+    </script>
+
+{% endblock %}

@@ -6,6 +6,13 @@ login
 
 {% block content %}
 <section class="vh-100 gradient-custom">
+  {% if request.GET.command == 'verification' %}
+  <div class="container bg-dark text-white alert alert.info text-center" role="alert" style="border-radius: 1rem;">
+     we have sent to you a verification message to your email address [{{request.GET.email}}]
+        <br><br>
+      Already verified?<a href="{% url 'login' %}">Login</a>
+  </div>
+  {% else %}
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -29,7 +36,7 @@ login
                   <label class="form-label" for="typePasswordX">Password</label>
                 </div>
   
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="{% url 'forgotPassword' %}">Forgot password?</a></p>
   
                 <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
   
@@ -51,6 +58,7 @@ login
         </div>
       </div>
     </div>
+    {% endif %}
   </section>
 
 {% endblock %}
