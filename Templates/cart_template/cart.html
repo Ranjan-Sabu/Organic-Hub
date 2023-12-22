@@ -67,18 +67,18 @@ cart
                                 <div class="d-flex justify-content-center align-items-center">
                                   {% if cart_item.quantity >= cart_item.product.stoke %}
                                      <!-- <input type="text" class="form-control text-center" value="{{cart_item.quantity}} Kg"> -->
-                                    <p class="form-control text-center">{{cart_item.quantity}} Kg, <br><span>stock is finished</span></p>
+                                    <p class="form-control text-center">{{cart_item.quantity}} {{cart_item.product.quantity_unit}}, <br><span>stock is finished</span></p>
                                     {% else %}
                                     <a href="{% url 'add_cart' cart_item.product.id %}" class="btn btn-light" type="button" id="button-minus"><i class="fa fa-plus"></i></a>
 
-                                    <p class="form-control text-center">{{cart_item.quantity}} Kg</p>
+                                    <p class="form-control text-center">{{cart_item.quantity}} {{cart_item.product.quantity_unit}}</p>
                                     {% endif %}
                                     <a href="{% url 'remove_cart' cart_item.product.id cart_item.id  %}" class="btn btn-light" type="button" id="button-plus"><i class="fa fa-minus"></i></a>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <h5 class="mb-0">₹ {{cart_item.sub_total}}</h5>
-                                <span class="small">₹ {{cart_item.product.price}}/kg</span>
+                                <span class="small">₹ {{cart_item.product.price}}/{{cart_item.product.quantity_unit}}</span>
                             </div>
                             <div class="col-md-2">
                                 <a href="{% url 'delete_cart_item' cart_item.product.id cart_item.id %}" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
