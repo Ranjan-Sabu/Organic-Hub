@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('order', '0003_rename_first_name_order_firstname_and_more'),
+        ("order", "0003_rename_first_name_order_firstname_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='orderproduct',
-            name='quantity',
+            model_name="orderproduct",
+            name="quantity",
             field=models.FloatField(),
         ),
     ]

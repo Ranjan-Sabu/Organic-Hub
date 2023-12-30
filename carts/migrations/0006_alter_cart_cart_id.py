@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('carts', '0005_alter_cart_cart_id'),
+        ("carts", "0005_alter_cart_cart_id"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='cart',
-            name='cart_id',
+            model_name="cart",
+            name="cart_id",
             field=models.CharField(blank=True, max_length=255),
         ),
     ]

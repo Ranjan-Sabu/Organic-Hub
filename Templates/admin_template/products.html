@@ -1,0 +1,89 @@
+{% extends 'admin_template/admin_base.html' %}
+
+{% block title %}
+  product
+{% endblock %}
+
+{% block content %}
+<style>
+  .gradient-custom-2 {
+    background: #7e40f6;
+    background: -webkit-linear-gradient(to right, rgba(126, 64, 246, 1), rgba(80, 139, 252, 1));
+    background: linear-gradient(to right, rgba(126, 64, 246, 1), rgba(80, 139, 252, 1));
+  }
+
+  .mask-custom {
+    background: rgba(24, 24, 16, 0.2);
+    border-radius: 2em;
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    background-clip: padding-box;
+    box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+  }
+</style>
+<section class="vh-auto gradient-custom-2">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-xl-10">
+
+        <div class="card mask-custom">
+          <div class="card-body p-4 text-white">
+
+            <div class="text-center pt-3 pb-2">
+              <h2 class="my-4">Product List</h2>
+            </div>
+            <div class="d-flex justify-content-end mb-3">
+              <button type="button" class="btn btn-success"><a href="{% url 'add_Product' %}">Add New Product</a></button>            
+            </div>
+            <div class="table-responsive">
+              <table class="table text-white mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for product in products %}
+                    <tr class="fw-normal">
+                      <td>
+                        <img src="{{ product.image.url }}" alt="category image" style="width: 45px; height: auto;">
+                        <span class="ms-2">{{ product.product_name }}</span>
+                      </td>
+                      <td class="align-middle" style="width: auto;">
+                        <span>{{ product.description }}</span>
+                      </td>
+                      <td class="align-middle">
+                        <span>{{ product.price }}/{{ product.quantity_unit }}</span>
+                      </td>
+                      <td class="align-middle">
+                        <span>{{ product.stoke }}{{ product.quantity_unit }}</span>
+                      </td>
+                      <td class="align-middle">
+                        <a href="{% url 'edit_Product' product.id %}" data-bs-toggle="tooltip" title="Edit">
+                          <i class="fas fa-edit fa-lg text-warning me-3"></i>
+                        </a>
+                      </td>
+                      <td class="align-middle">
+                        <a href="{% url 'delete_Product' product.id %}" data-mdb-toggle="tooltip" title="Remove">
+                          <i class="fas fa-trash-alt fa-lg text-danger"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

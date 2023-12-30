@@ -2,6 +2,7 @@ from django.db import models
 from Accounts.models import Registration
 from carts.models import Product
 
+
 # Create your models here.
 class Payment(models.Model):
     user = models.ForeignKey(Registration, on_delete=models.CASCADE)
@@ -13,7 +14,6 @@ class Payment(models.Model):
 
     def __str__(self):
         return self.payment_id
-    
 
 
 class Order(models.Model):
@@ -48,8 +48,6 @@ class Order(models.Model):
 
     def full_name(self):
         return f"{self.firstname} {self.lastname}"
-
-
 
     def __str__(self):
         return self.firstname

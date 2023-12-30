@@ -1,0 +1,86 @@
+{% extends 'user_template/base.html'%}
+
+{% block title %}
+home
+{% endblock %}
+
+{% block content %}
+<style>
+    .gradient-custom {
+/* fallback for old browsers */
+background: #cd9cf2;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
+}
+</style>
+<br>
+<div class="container">
+ <div class="row">
+    <section class="h-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <a href="{% url 'dashboard' %}" data-mdb-toggle="tooltip" title="Go Back">
+                <i class="fas fa-arrow-left fa-lg text-secondary"> Go Back</i>
+              </a>
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-10 col-xl-12">
+              <div class="card" style="border-radius: 10px;">
+                <div class="card-header px-4 py-3">
+                  <h5 class="text-muted mb-0">your ordered products</h5>
+                </div>
+                <div class="card-body p-4">
+                  <div class="card shadow-0 border mb-4">
+                    <div class="card-body">
+                        {%for order_product in orderview %}
+                      <div class="row">
+                        <div class="col-md-1">
+                          <img src="{{order_product.product.image.url}}"
+                            class="img-fluid" alt="image">
+                            <p class="text-muted mb-0">{{order_product.product}}</p>
+                        </div>
+                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                          <p class="text-muted mb-0 small">Qty:<br/>{{order_product.quantity}} {{order_product.product.quantity_unit}}</p>
+                        </div>
+                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                          <p class="text-muted mb-0 small">Price:<br/>{{order_product.product_price}}/{{order_product.product.quantity_unit}}</p>
+                        </div>
+                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                          <p class="text-muted mb-0 small">Payment id:<br/>{{order_product.payment.payment_id}}</p>
+                        </div>
+                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                          <p class="text-muted mb-0 small">Payment Status:<br/>{{order_product.payment.status}}</p>
+                        </div>
+                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                            <p class="text-muted mb-0 small">Delivery Address:<br/>{{order_product.order.address}}</p>
+                          </div>
+                      </div>
+                      <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+             </div>
+            </div>
+          </div>
+        </div>
+    </section>    
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{%for order_product in orderview%}
+<h1>{{order_product.quantity}}</h1>
+<h1>{{order_product.product}}</h1>
+<h1>{{order_product.payment.status}}</h1>
+{% endfor %}

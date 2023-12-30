@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -6,16 +5,16 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 class MyAccountManager(BaseUserManager):
     def create_user(self, firstname, lastname, username, email, password=None):
         if not email:
-            raise ValueError('User must have an email address')
+            raise ValueError("User must have an email address")
 
         if not username:
-            raise ValueError('User must have a username')
+            raise ValueError("User must have a username")
 
         user = self.model(
             email=self.normalize_email(email),
             username=username,
             firstname=firstname,
-            lastname=lastname
+            lastname=lastname,
         )
 
         user.set_password(password)
@@ -28,7 +27,7 @@ class MyAccountManager(BaseUserManager):
             username=username,
             password=password,
             firstname=firstname,
-            lastname=lastname
+            lastname=lastname,
         )
         user.is_admin = True
         user.is_staff = True
@@ -37,12 +36,13 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class Registration(AbstractBaseUser):
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
-    phone = models.CharField(max_length=100,null=True,blank=True)
+    phone = models.CharField(max_length=100, null=True, blank=True)
 
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
@@ -51,8 +51,8 @@ class Registration(AbstractBaseUser):
     is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'firstname', 'lastname']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username", "firstname", "lastname"]
 
     objects = MyAccountManager()
 
@@ -70,19 +70,16 @@ class Registration(AbstractBaseUser):
 
     def get_full_name(self):
         return f"{self.firstname} {self.lastname}"
-    
-
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(Registration, on_delete=models.CASCADE)
     address = models.CharField(max_length=255, unique=False)
     profile_picture = models.ImageField(upload_to="userprofile")
-    phone_number = models.CharField(max_length=13)
+    phone_number = models.CharField(max_length=10)
     city = models.CharField(max_length=20, unique=False)
     state = models.CharField(max_length=20, unique=False)
     country = models.CharField(max_length=20, unique=False)
 
     def __str__(self):
         return self.user.firstname
-

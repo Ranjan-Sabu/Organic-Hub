@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('carts', '0002_alter_cart_cart_id'),
+        ("carts", "0002_alter_cart_cart_id"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='cartitem',
-            name='quantity',
+            model_name="cartitem",
+            name="quantity",
             field=models.FloatField(),
         ),
     ]

@@ -3,7 +3,7 @@
 <html>
  <head>
    <meta charset="UTF-8">  
-    <title>
+    <title>                                                                 
       {% block title %}
       
       {% endblock %}
@@ -27,7 +27,7 @@
         <div class="d-flex justify-content-between align-items-center w-100">
     
           <!-- Left side -->
-          <div class="left-section d-flex align-items-center">
+           <div class="left-section d-flex align-items-center">
             <a class="navbar-brand" href="#">Fresh Food</a>
             <ul class="navbar-nav">
               <li class="nav-item active">
@@ -69,6 +69,9 @@
               <p class="navbar-text mr-3">Welcome {{ user.firstname }}</p>
               <button class="mr-2"><a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a></button>
               <button><a href="{% url 'logout' %}" class="nav-link">Logout</a></button>
+              {% if user.is_superadmin %}
+              <button><a href="{% url 'admin_panel' %}" class="nav-link">Admin panel</a></button>
+              {% endif %}
             {% else %}
               <button><a href="{% url 'login' %}" class="nav-link">Login</a></button>
               <button><a href="{% url 'register' %}" class="nav-link">Register</a></button>
@@ -77,16 +80,16 @@
     
         </div>
       </div>
-    </nav>
+    </nav> 
     
     <div class="flex-grow-1">
+
+      <!-- <p style="background-image: url('background_image.jpg');"></p> -->
       {% block content %}
         <!-- Your content goes here -->
       {% endblock %}
     </div><br><br>
-
-
-
+    
     <section class="fixed-bottom">
       <footer class="pt-2 pb-2  bg-success text-light">
         <div class="container">

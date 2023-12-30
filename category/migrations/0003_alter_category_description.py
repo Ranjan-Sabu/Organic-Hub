@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('category', '0002_alter_category_options_alter_category_description_and_more'),
+        ("category", "0002_alter_category_options_alter_category_description_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='category',
-            name='description',
+            model_name="category",
+            name="description",
             field=models.TextField(max_length=300),
         ),
     ]

@@ -1,0 +1,82 @@
+{% extends 'admin_template/admin_base.html' %}
+
+{% block title %}
+bookings
+{% endblock %}
+
+{% block content %}
+<style>
+  .gradient-custom-2 {
+    background: #7e40f6;
+    background: -webkit-linear-gradient(to right, rgba(126, 64, 246, 1), rgba(80, 139, 252, 1));
+    background: linear-gradient(to right, rgba(126, 64, 246, 1), rgba(80, 139, 252, 1));
+  }
+
+  .mask-custom {
+    background: rgba(24, 24, 16, 0.2);
+    border-radius: 2em;
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    background-clip: padding-box;
+    box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+  }
+</style>
+<section class="vh-auto gradient-custom-2">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-xl-10">
+
+        <div class="card mask-custom">
+          <div class="card-body p-4 text-white">
+
+            <div class="text-center pt-3 pb-2">
+              <h2 class="my-4">Booking List</h2>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table text-white mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Payment id</th>
+                    <th scope="col">Payment status</th>
+                    <th scope="col">Order Status</th>
+                    <th scope="col">Amount Paid</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for orders in ordered_products %}
+                    <tr class="fw-normal">
+                      <td>
+                        <!-- <img src="{{ product.image.url }}" alt="image" style="width: 45px; height: auto;"> -->
+                        <!-- <span class="ms-2">{{ orders.user.firstname }}</span> -->
+                      </td>
+                      <td class="align-middle">
+                        <span>{{ orders.payment }}</span>
+                      </td>
+                      <td class="align-middle">
+                        <span>{{ orders.payment.status }}</span>
+                      </td>
+                      <td class="align-middle">
+                        <span>{{ orders.order.status }}</span>
+                      </td>
+                      <td class="align-middle">
+                        <span>{{ orders.payment.amount_paid }}</span>
+                      </td>
+                      <td class="align-middle">
+                        <button>More Details</button>
+                      </td>                      
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

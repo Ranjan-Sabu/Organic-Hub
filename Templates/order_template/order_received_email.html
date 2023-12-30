@@ -1,5 +1,11 @@
 {% autoescape off %}
 Hi {{user.firstname}}
 YOUR ORDER HAS BEEN RECIEVED
-Order number:{{order.order_number}}
+Order number : {{order.order_number}}
+Transaction id : {{payment.payment_id}}
+Date : {{order.created_at}}
+Tax Amount : {{order.tax}}
+Total Amount Paid : {{order.order_total}}
+Delivery Address : {{order.address}},{{order.city}},{{order.state}},{{order.country}}
+
 {% endautoescape %}

@@ -60,7 +60,7 @@ store
 
                    {% else %}
                    <button type="button" class="btn btn-primary"><a class="btn btn-primary"  href="{% url 'add_cart' single_product.id %}">Add To Cart</a></button>
-                   <button type="button" class="btn btn-primary">Buy now</button>
+                   <button type="button" class="btn btn-primary"><a class="btn btn-primary"  href="{% url 'checkout'  %}">Buy now</a></button>
                    {% endif %}
                 {% endif %}
               </div>

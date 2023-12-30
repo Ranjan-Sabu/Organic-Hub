@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('Accounts', '0002_alter_registration_date_joined'),
+        ("Accounts", "0002_alter_registration_date_joined"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='registration',
-            name='date_joined',
+            model_name="registration",
+            name="date_joined",
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
-            model_name='registration',
-            name='phone',
+            model_name="registration",
+            name="phone",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
     ]
