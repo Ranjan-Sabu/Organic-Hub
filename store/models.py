@@ -18,7 +18,7 @@ class Product(models.Model):
     description = models.TextField(max_length=500, blank=True)
     price = models.IntegerField()
     image = models.ImageField(upload_to="photos/products")
-    stoke = models.FloatField()
+    stoke = models.FloatField(default=0)
     quantity_unit = models.CharField(
         max_length=20, choices=QUANTITY_UNIT_CHOICES, default="Kg"
     )
@@ -27,6 +27,13 @@ class Product(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
+
+    def save(self, *args, **kwargs):
+        if self.stoke < 0:
+            self.stoke = 0
+
+        super(Product, self).save(*args, **kwargs)
+        
     def get_url(self):
         return reverse("product_detail", args=[self.category.slug, self.slug])
 

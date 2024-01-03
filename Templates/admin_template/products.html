@@ -20,12 +20,17 @@
     background-clip: padding-box;
     box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
   }
+
+ a.text-white {
+        text-decoration: none;
+    }
+
 </style>
 <section class="vh-auto gradient-custom-2">
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-12 col-xl-10">
-
+        {% include 'user_template/alert.html'%} 
         <div class="card mask-custom">
           <div class="card-body p-4 text-white">
 
@@ -33,7 +38,7 @@
               <h2 class="my-4">Product List</h2>
             </div>
             <div class="d-flex justify-content-end mb-3">
-              <button type="button" class="btn btn-success"><a href="{% url 'add_Product' %}">Add New Product</a></button>            
+              <button type="button" class="btn btn-success"><a href="{% url 'add_Product' %}" class="text-white">Add New Product</a></button>            
             </div>
             <div class="table-responsive">
               <table class="table text-white mb-0">

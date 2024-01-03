@@ -19,6 +19,47 @@
       href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet"
       href="{% static '/css/style.css' %}">
+      <style>
+/* Custom styles for the company logo */
+a.navbar-brand {
+    font-family: 'Pacifico', cursive; /* Use a stylish font, you can replace it with your preferred font */
+    font-size: 36px; /* Adjust the font size as needed */
+    font-weight: bold; /* Make it bold for emphasis */
+    color: #ffffff; /* Set the text color */
+    text-decoration: none; /* Remove default underline */
+    position: relative; /* Position relative for absolute positioning of the running border */
+    overflow: hidden; /* Hide overflow for a clean look */
+}
+
+/* Keyframe animation for running lights */
+@keyframes runningLights {
+    0%, 100% {
+        background: linear-gradient(90deg, rgba(211, 236, 112, 0.5), rgba(63, 232, 150, 0.5), rgba(74, 177, 6, 0.5), rgba(12, 183, 80, 0.5));
+        background-size: 400% 100%;
+        background-position: 0 0;
+        color: #c1f2a2; /* Set the text color */
+    }
+    25% {
+        background-position: 100% 0;
+        color: #f3da3a; /* Change the text color at this keyframe */
+    }
+    50% {
+        background-position: 200% 0;
+        color: #85f085; /* Change the text color at this keyframe */
+    }
+    75% {
+        background-position: 300% 0;
+        color: #9715b437; /* Change the text color at this keyframe */
+    }
+}
+
+/* Apply runningLights animation */
+a.navbar-brand {
+    animation: runningLights 8s linear infinite;
+}
+
+    </style>
+      
   </head>
     <body class="d-flex flex-column min-vh-100">
     
@@ -62,26 +103,27 @@
               </form>
             </div>
           </div>
-    
-          <!-- Right side -->
-          <div class="right-section d-flex align-items-center">
-            {% if user.is_authenticated %}
-              <p class="navbar-text mr-3">Welcome {{ user.firstname }}</p>
-              <button class="mr-2"><a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a></button>
-              <button><a href="{% url 'logout' %}" class="nav-link">Logout</a></button>
-              {% if user.is_superadmin %}
-              <button><a href="{% url 'admin_panel' %}" class="nav-link">Admin panel</a></button>
-              {% endif %}
-            {% else %}
-              <button><a href="{% url 'login' %}" class="nav-link">Login</a></button>
-              <button><a href="{% url 'register' %}" class="nav-link">Register</a></button>
+        <!-- Right side -->
+        <div class="right-section d-flex align-items-center">
+          {% if user.is_authenticated %}
+              <a href="{% url 'dashboard' %}" class="nav-link text-dark">
+                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;"><br>
+                {{ user.firstname }}
+              </a>
+            
+            <button class="rounded-circle"><a href="{% url 'logout' %}" class="nav-link">Logout</a></button>
+            {% if user.is_staff %}
+              <button class="rounded-circle"><a href="{% url 'admin_panel' %}" class="nav-link">Admin panel</a></button>
             {% endif %}
-          </div>
-    
+          {% else %}
+            <button class="rounded-circle"><a href="{% url 'login' %}" class="nav-link">Login</a></button>
+            <button class="rounded-circle"><a href="{% url 'register' %}" class="nav-link">Register</a></button>
+          {% endif %}
         </div>
-      </div>
-    </nav> 
-    
+    </div>
+  </div>
+</nav> 
+
     <div class="flex-grow-1">
 
       <!-- <p style="background-image: url('background_image.jpg');"></p> -->
@@ -113,3 +155,35 @@
 
   </body>
 </html>
+
+
+
+
+
+<!-- <head>
+  <link rel="stylesheet"
+      href=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css ">
+    <link rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+</head> -->
+<!-- <div class="container">
+ <div class="row">
+    {% for category in categories %}
+
+    <div class="col-md-6 mb-4">
+      <div class="card" style="width: 100%;">
+        <a href="{{category.get_url}}">
+          <img class="card-img-top" src="{{category.cart_image.url}}" alt="Card image cap"></a>
+          <div class="card-body">
+            <h5 class="card-title text-center"  >{{category.category_name}}</h5>
+            <b><p class="card-text text-center">Fresh, Organic Delights</p></b>
+            <p>{{category.description}}</p>
+            <a href="{{category.get_url}}" class="btn btn-primary">View</a> 
+          </div>
+        
+      </div>
+    </div>
+
+    {% endfor %}
+ </div>
+</div> -->

@@ -3,6 +3,8 @@ from store.models import Product
 from carts.models import CartItem, Cart
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import messages
+
 
 from .models import Cart, CartItem
 from django.contrib.auth.models import User
@@ -17,6 +19,9 @@ def _cart_id(request):
 
 def add_cart(request, product_id):
     current_user = request.user
+    if current_user.is_authenticated and current_user.is_superadmin:
+        messages.warning(request, "Super admins cannot add items to the cart.")
+        return redirect("store")
     product = Product.objects.get(id=product_id)
 
     # If the user is authenticated

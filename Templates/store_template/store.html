@@ -8,24 +8,26 @@ store
 
 {% block content %}
 
-<section class="section-pagetop bg-primary">
+<section class="section-pagetop bg-secondary">
   <div class="container">
     {% if 'search' in request.path %}
-      <h2 class="title-page">Search Result</h2>
+      <h2 class="title-page text-white text-md-start">Search Result</h2>
     {% else %}
-      <h2 class="title-page">Our Store</h2>
+      <h2 class="title-page text-white text-md-start">Our Store</h2>
     {% endif %}
+    {% include 'user_template/alert.html'%} 
   </div>
 </section>
 
 
 
+
 <div class="row">
   {% if products %}
-  <p><b>{{product_count}}</b>items found</p>
+  <h5><b>{{product_count}}</b>items found</h5>
     {% for product in products %}
   
-    <div class="card" style="width: 18rem; ">
+    <div class="card" style="width: 15rem; margin-left: 60px;">
       <a href="{{product.get_url}}" style="display: block; overflow: hidden;">
           <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap" style="width: 100%; height: 150px; object-fit: cover;">
       </a>
@@ -41,6 +43,7 @@ store
   
   
   
+  
     {% endfor %}
    {% else %}
    <div>
@@ -48,6 +51,7 @@ store
    </div> 
    {% endif %}
 </div>
+
 
 <div class="container">
   <nav aria-label="Page navigation" class="d-flex justify-content-center">

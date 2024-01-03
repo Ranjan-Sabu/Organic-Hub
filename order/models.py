@@ -20,8 +20,8 @@ class Order(models.Model):
     STATUS = (
         ("New", "New"),
         ("Accepted", "Accepted"),
+        ("Delivered","Delivered"),
         ("Completed", "Completed"),
-        ("Cancelled", "Cancelled"),
     )
 
     user = models.ForeignKey(Registration, on_delete=models.SET_NULL, null=True)

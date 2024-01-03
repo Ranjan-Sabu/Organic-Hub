@@ -1,0 +1,120 @@
+{% extends 'admin_template/admin_base.html'%}
+{% load static %}
+
+{% block title %}
+order details
+{% endblock %}
+
+
+{% block content %}
+<style>
+       body {
+  background-color: #abd8ef; /* Light Blue */
+}
+
+.order-details-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.order-products {
+  background-color: #e8daa2; /* Yellow */
+  flex-basis: calc(50% - 10px);
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.order-summary {
+  background-color: #dca989; /* Peach */
+  flex-basis: calc(50% - 10px);
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+  <br><br>
+  <a href="{% url 'admin_orders' %}" data-mdb-toggle="tooltip" title="Go Back">
+    <i class="fas fa-arrow-left fa-lg text-secondary"> Go Back</i>
+  </a>
+    <h2 class="text-center">Order Details</h2>
+
+    <div class="order-details-container">
+
+        <!-- Order Products -->
+        <div class="order-products">
+            {% for detail in details %}
+            <div>
+                <strong>Product:</strong> {{ detail.product.product_name }} <br>
+                <strong>Quantity:</strong> {{ detail.quantity }} <br>
+                <strong>Price:</strong> {{ detail.product_price }}/{{detail.product.quantity_unit}} <br>
+                <strong>Is Ordered:</strong>
+                <input type="checkbox" {% if order.is_ordered %}checked{% endif %} disabled><br>
+                <strong>Created At:</strong> {{ detail.created_at }} <br>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <div class="card-body">
+            <h5 class="card-title">{{ order.firstname }} {{ order.lastname }}</h5>
+            <p class="card-text">
+              <strong>Order Number:</strong> {{ order.order_number }} 
+            </p>
+            <p class="card-text">
+              <strong>Payment ID:</strong> {{ order.payment.payment_id }} 
+            </p>
+            <p class="card-text">
+              <strong>Phone:</strong> {{ order.phone }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>Email:</strong> {{ order.email }}
+            </p>
+            <p class="card-text">
+              <strong>Address:</strong> {{ order.address }}, {{ order.city }}, {{ order.state }}, {{ order.country }}
+            </p>
+            <p class="card-text">
+              <strong>Order Note:</strong> {{ order.order_note }} 
+            </p>
+              <strong>Created At:</strong> {{ order.created_at }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>Updated At:</strong> {{ order.updated_at }}
+            </p>
+            <p class="card-text">
+              <strong>IP:</strong> {{ order.ip }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>Order Status:</strong> {{ order.status }} 
+              <button type="button" class="btn btn-success"><a href="{% url 'update_order_status' id=order.id  %}" class="text-white">Manage status</a></button>            
+            </p>
+            <p class="card-text">
+              <strong>Payment Method:</strong>{{order.payment.payment_method}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>Payment Status:</strong> {{ order.payment.status }}
+            </p>
+            <p class="card-text">
+              <strong>Tax Amount:</strong> {{ order.tax }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>Total Amount:</strong> {{ order.order_total }}
+            </p>
+            <strong>Is Ordered:</strong>
+            <input type="checkbox" {% if order.is_ordered %}checked{% endif %} disabled>
+
+            <!-- Add other order details here -->
+          </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% endblock %}
+

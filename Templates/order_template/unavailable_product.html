@@ -1,0 +1,22 @@
+{% extends 'user_template/base.html' %}
+
+{% block title %}
+Product Unavailable
+{% endblock %}
+
+{% block content %}
+<section class="h-100 h-custom" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="mb-3">Product Unavailable</h5>
+                        <p>{{ message }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

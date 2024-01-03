@@ -5,6 +5,7 @@ users
 {% endblock %}
 
 {% block content %}
+
 <style>
   .gradient-custom-2 {
     background: #7e40f6;
@@ -25,7 +26,7 @@ users
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-12 col-xl-10">
-
+        {% include 'user_template/alert.html' %}
         <div class="card mask-custom">
           <div class="card-body p-4 text-white">
 
@@ -60,13 +61,13 @@ users
                        </a>
                       </td>
                       <td class="align-middle">
-                        {% if user.is_active %}
+                        {% if user.is_blocked %}
                         <a href="{% url 'blockuser' user.id %}" data-mdb-toggle="tooltip" title="Block">
-                          <i class="fas fa-ban fa-lg text-danger"> Block</i>
+                          <i class="fas fa-ban fa-lg text-danger"> Unblock</i>
                         </a>
                         {% else %}
                         <a href="{% url 'blockuser' user.id %}" data-mdb-toggle="tooltip" title="Block">
-                          <i class="fas fa-ban fa-lg text-danger"> Unblock</i>
+                          <i class="fas fa-ban fa-lg text-danger"> Block</i>
                         </a>
                         {% endif %}
                       </td>                      

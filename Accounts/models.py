@@ -50,6 +50,7 @@ class Registration(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
+    is_blocked = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "firstname", "lastname"]
@@ -70,8 +71,8 @@ class Registration(AbstractBaseUser):
 
     def get_full_name(self):
         return f"{self.firstname} {self.lastname}"
-
-
+    
+    
 class UserProfile(models.Model):
     user = models.OneToOneField(Registration, on_delete=models.CASCADE)
     address = models.CharField(max_length=255, unique=False)

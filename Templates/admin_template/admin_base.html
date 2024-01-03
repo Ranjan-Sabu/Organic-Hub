@@ -39,7 +39,7 @@
               <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'admin_booking' %}">Bookings</a>
+              <a class="nav-link" href="{% url 'admin_orders' %}">Orders</a>
             </li>
           </ul>
         </div>
@@ -49,7 +49,7 @@
           {% endif %}
         </div>
         <div>
-          <button><a href="{% url 'logout' %}" class="nav-link">Logout</a></button>
+          <button class="rounded-circle"><a href="{% url 'logout' %}" class="nav-link">Logout</a></button>
         </div>
       </nav>
     </div>

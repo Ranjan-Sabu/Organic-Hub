@@ -11,6 +11,7 @@ from order.models import Order, OrderProduct
 from django.shortcuts import get_object_or_404
 from .forms import UserProfile, UserForm, UserProfileForm
 from functools import wraps
+import re
 
 from django.contrib.auth import update_session_auth_hash
 
@@ -26,9 +27,6 @@ from carts.models import Cart, CartItem
 from carts.views import _cart_id
 
 
-# Create your views here.
-# def home(request):
-#     return render(request,'user_template/home.html')
 def logout_required(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
@@ -82,7 +80,7 @@ def user_register(request):
             sent_email = EmailMessage(email_subject, message, to=[to_email])
             sent_email.send()
 
-            #  messages.success(request,'Registration successful')
+            messages.success(request,'Registration successful')
             return redirect("/login/?command=verification&email=" + email)
     else:
         form = Registrationform()
@@ -95,37 +93,47 @@ def user_register(request):
 @logout_required
 def login_user(request):
     if request.method == "POST":
-        email = request.POST["email"]
-        password = request.POST["password"]
+        try:
+            email = request.POST["email"]
+            password = request.POST["password"]
+            users = Registration.objects.get(email=email)
+            user = authenticate(request, email=email, password=password)
 
-        user = authenticate(request, email=email, password=password)
+            if user is not None:  # Check if the user is active
+                
 
-        if user is not None:  # Check if the user is active
-            try:
-                print("try block")
-                cart = Cart.objects.get(cart_id=_cart_id(request))
-                print(f"Cart: {cart}")  # Add this line for debugging
-                is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
-                print(
-                    f"is_cart_item_exists: {is_cart_item_exists}"
-                )  # Add this line for debugging
+                try:
+                    if users.is_blocked:
+                        messages.error(request, "You are not an active user, please contact admin")
+                        return redirect("login")
+                             
+                    print("try block")
+                    cart = Cart.objects.get(cart_id=_cart_id(request))
+                    print(f"Cart: {cart}")  # Add this line for debugging
+                    is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
+                    print(
+                        f"is_cart_item_exists: {is_cart_item_exists}"
+                    )  # Add this line for debugging
 
-                if is_cart_item_exists:
-                    cart_items = CartItem.objects.filter(cart=cart)
-                    print(f"cart_items: {cart_items}")  # Add this line for debugging
+                    if is_cart_item_exists:
+                        cart_items = CartItem.objects.filter(cart=cart)
+                        print(f"cart_items: {cart_items}")  # Add this line for debugging
 
-                    for item in cart_items:
-                        item.user = user
-                        item.save()
-            except Exception as e:
-                print(f"except block: {e}")  # Print the exception message for debugging
+                        for item in cart_items:
+                            item.user = user
+                            item.save()
+                except Exception as e:
+                    print(f"except block: {e}")  # Print the exception message for debugging
+                login(request, user)
+                messages.success(request, 'You are successfully logged in')
+                return redirect("home")
+            if not users.check_password(password):
+                        messages.error(request, "Invalid password")   
+                        return redirect('login')    
+        except Registration.DoesNotExist:
+            messages.warning(request,'No user found with the provided email')
+            return redirect('login')
 
-            login(request, user)
-            # messages.success(request, 'You are successfully logged in')
-            return redirect("home")
-        else:
-            messages.error(request, "Invalid login")
-            return redirect("register")
 
     return render(request, "user_template/login.html")
 
@@ -133,15 +141,13 @@ def login_user(request):
 @login_required(login_url="login")
 def user_logout(request):
     auth.logout(request)
-    messages.success(request, "you are logg out")
+    messages.success(request, "you are logout")
     return redirect("login")
 
 
 @login_required(login_url="login")
 def dashboard(request):
-    print(request.user)
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    print("userpro",user_profile)
     order_lists = Order.objects.filter(user=request.user).order_by('-created_at')
 
     context = {"user_profile": user_profile, "order_lists": order_lists}
@@ -223,9 +229,22 @@ def resetpassword(request):
     if request.method == "POST":
         password = request.POST["password"]
         confirm_password = request.POST["Confirm_password"]
+        password_regex = r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\S+$).{4,}$'
+
         if password == confirm_password:
             uid = request.session.get("uid")
             user = Registration.objects.get(pk=uid)
+            if not re.match(password_regex, password):
+                    messages.error(
+                        request,
+                        'Password must meet the following criteria:'
+                        ' At least 8 characters in length,'
+                        ' Contains at least one alphabetic character (uppercase or lowercase),'
+                        ' Contains at least one digit,'
+                        ' Contains at least one special character from the set [@#$%^&-+=()],'
+                        ' No whitespace allowed.'
+                    )
+                    return redirect('resetpassword')
             user.set_password(password)
             user.save()
             messages.success(request, "password reset successfully")
@@ -244,12 +263,30 @@ def changepassword(request):
         current_password = request.POST["current_password"]
         new_password = request.POST["new_password"]
         confirm_password = request.POST["Confirm_password"]
+        password_regex = r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\S+$).{4,}$'
+
 
         user = Registration.objects.get(username=request.user.username)
 
         if new_password == confirm_password:
             success = user.check_password(current_password)
             if success:
+                if not re.match(password_regex, new_password):
+                    messages.error(
+                        request,
+                        'Password must meet the following criteria:'
+                        ' At least 8 characters in length,'
+                        ' Contains at least one alphabetic character (uppercase or lowercase),'
+                        ' Contains at least one digit,'
+                        ' Contains at least one special character from the set [@#$%^&-+=()],'
+                        ' No whitespace allowed.'
+                    )
+                    return redirect('changepassword')
+                if current_password == new_password:
+                        messages.error(request, 'New password is same as the Old password?!')
+                        return redirect('changepassword')
+
+
                 user.set_password(new_password)
                 user.save()
                 update_session_auth_hash(request, user)
@@ -266,7 +303,7 @@ def changepassword(request):
 @login_required(login_url="login")
 def editprofile(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
-    print(user_profile, "userprofile")
+ 
     if request.method == "POST":
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(
@@ -286,9 +323,9 @@ def editprofile(request):
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=user_profile)
 
-        context = {
-            "user_form": user_form,
-            "profile_form": profile_form,
-        }
+    context = {
+        "user_form": user_form,
+        "profile_form": profile_form,
+    }
 
     return render(request, "user_template/editprofile.html", context)

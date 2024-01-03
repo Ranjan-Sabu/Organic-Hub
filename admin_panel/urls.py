@@ -14,5 +14,8 @@ urlpatterns = [
     path("admin_users/", views.users, name="admin_users"),
     path("<int:id>/blockuser/", views.blockuser, name="blockuser"),
     path("<int:id>/usersprofile/", views.usersprofile, name="usersprofile"),
-    path("admin_booking/", views.booking, name="admin_booking"),
+    path('<int:id>/toggle_admin/', views.toggle_admin, name='toggle_admin'),
+    path("admin_orders/", views.orders, name="admin_orders"),
+    path("<int:id>/orderdetails/",views.orderdetails,name='orderdetails'),
+    path('<int:id>/update_status/', views.update_order_status, name='update_order_status'),
 ]
