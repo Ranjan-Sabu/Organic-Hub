@@ -8,7 +8,7 @@ store
 
 {% block content %}
 
-<section class="section-pagetop bg-secondary">
+<section class="section-pagetop mt-2" style="background-color: rgb(128, 170, 128);">
   <div class="container">
     {% if 'search' in request.path %}
       <h2 class="title-page text-white text-md-start">Search Result</h2>
@@ -18,8 +18,6 @@ store
     {% include 'user_template/alert.html'%} 
   </div>
 </section>
-
-
 
 
 <div class="row">
@@ -36,15 +34,10 @@ store
           <p class="card-text"> ₹ {{ product.price }}/{{product.quantity_unit}}</p>
           <div class="mt-auto">
               <a href="{{product.get_url}}" class="btn btn-primary mb-2 w-100">View</a>
-              <!-- <a href="{% url 'add_cart' product.id %}" class="btn btn-primary">Add To Cart</a> -->
           </div>
       </div>
   </div>
-  
-  
-  
-  
-    {% endfor %}
+  {% endfor %}
    {% else %}
    <div>
     <h1>No Result found</h1>

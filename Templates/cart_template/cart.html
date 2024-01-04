@@ -130,14 +130,13 @@ cart
                         <p class="mb-2">₹ {{grand_total}}</p>
                       </div>
   
-                      <button type="button" class="btn btn-info btn-block btn-lg">
-                        <a href="{% url 'checkout' %}">
+                      <a href="{% url 'checkout' %}" class="btn btn-success btn-block btn-lg">
                         <div class="d-flex justify-content-between">
-                          <span>₹ {{grand_total}}</span>&nbsp;&nbsp;
+                          <span>₹ {{ grand_total }}</span>&nbsp;&nbsp;
                           <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                         </div>
                       </a>
-                      </button>
+                      
   
                     </div>
                   </div>

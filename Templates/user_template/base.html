@@ -20,36 +20,39 @@
     <link rel="stylesheet"
       href="{% static '/css/style.css' %}">
       <style>
-/* Custom styles for the company logo */
 a.navbar-brand {
     font-family: 'Pacifico', cursive; /* Use a stylish font, you can replace it with your preferred font */
-    font-size: 36px; /* Adjust the font size as needed */
+    font-size: 35px; /* Increase the font size for emphasis */
     font-weight: bold; /* Make it bold for emphasis */
-    color: #ffffff; /* Set the text color */
+    color: #2ecc71; /* Use a fresh green color for the text */
     text-decoration: none; /* Remove default underline */
     position: relative; /* Position relative for absolute positioning of the running border */
     overflow: hidden; /* Hide overflow for a clean look */
+    display: inline-block; /* Display as inline-block to contain the animation */
+
+    /* Add some shadow for depth */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Keyframe animation for running lights */
 @keyframes runningLights {
     0%, 100% {
-        background: linear-gradient(90deg, rgba(211, 236, 112, 0.5), rgba(63, 232, 150, 0.5), rgba(74, 177, 6, 0.5), rgba(12, 183, 80, 0.5));
+        background: linear-gradient(90deg, #3498db, #e74c3c, #2ecc71, #f39c12); /* Use vibrant colors for the running lights */
         background-size: 400% 100%;
         background-position: 0 0;
-        color: #c1f2a2; /* Set the text color */
+        color: #ffffff; /* White text color for contrast */
     }
     25% {
         background-position: 100% 0;
-        color: #f3da3a; /* Change the text color at this keyframe */
+        color: #f39c12; /* Use a bright yellow text color at this keyframe */
     }
     50% {
         background-position: 200% 0;
-        color: #85f085; /* Change the text color at this keyframe */
+        color: #3498db; /* Use a blue text color at this keyframe */
     }
     75% {
         background-position: 300% 0;
-        color: #9715b437; /* Change the text color at this keyframe */
+        color: #e74c3c; /* Use a red text color at this keyframe */
     }
 }
 
@@ -58,132 +61,227 @@ a.navbar-brand {
     animation: runningLights 8s linear infinite;
 }
 
-    </style>
+</style>
+<head>
+  <script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+  crossorigin="anonymous"> 
+</script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+  <body class="d-flex flex-column min-vh-100">
+      <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+                <a class="navbar-brand d-lg-none" href="#">Fresh Food</a>
       
-  </head>
-    <body class="d-flex flex-column min-vh-100">
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-success">
-      <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center w-100">
-    
-          <!-- Left side -->
-           <div class="left-section d-flex align-items-center">
-            <a class="navbar-brand" href="#">Fresh Food</a>
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'store' %}" class="nav-link">Store</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Categories
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <!-- Left side -->
+            <div class="left-section d-flex align-items-center">
+              <a class="navbar-brand d-none d-lg-block" href="#">Fresh Food</a>
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link text-light" href="{% url 'home' %}"><b>Home</b><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'store' %}" class="nav-link text-light"><b>Store</b></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <b>Categories</b>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for category in links %}
+                      <a class="dropdown-item" href="{{category.get_url}}">{{category.category_name}}</a>
+                    {% endfor %}
+                  </div>
+                </li>
+              </ul>
+            </div>
+      
+            <!-- Middle (Search bar) -->
+            <div class="middle-section">
+              <div class="search-bar bg-white">
+                <form class="form-inline" action="{% url 'search' %}" method="GET">
+                  <div class="input-group">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword" required>
+                    <button class="btn btn-outline-secondary" type="submit">
+                      <i class="fas fa-search text-primary"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+      
+            <!-- Right side -->
+            <div class="right-section d-flex align-items-center ml-auto">
+              <script src="https://cdn.lordicon.com/lordicon.js"></script>
+              <a href="{% url 'cart' %}">
+                <lord-icon
+                src="https://cdn.lordicon.com/odavpkmb.json"
+                trigger="loop"
+                delay="1000"
+                stroke="bold"
+                colors="primary:#ffffff,secondary:#000000"
+                style="width:50px;height:50px">
+            </lord-icon>
+            </a>
+              {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="nav-link text-light">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;"><br>
+                  <b>{{ user.firstname }}</b>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  {% for category in links %}
-                    <a class="dropdown-item" href="{{category.get_url}}">{{category.category_name}}</a>
-                  {% endfor %}
-                </div>
-              </li>
-            </ul>
-          </div>
-    
-          <!-- Middle (Search bar) -->
-          <div class="middle-section">
-            <div class="search-bar bg-white">
-              <form class="form-inline" action="{% url 'search' %}" method="GET">
-                <div class="input-group">
-                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword" required>
-                  <button class="btn btn-outline-secondary" type="submit">
-                    <i class="fas fa-search text-primary"></i>
-                  </button>
-                </div>
-              </form>
+      
+                <button class="rounded-circle"><a href="{% url 'logout' %}" class="nav-link">Logout</a></button>
+                {% if user.is_staff %}
+                  <button class="rounded-circle"><a href="{% url 'admin_panel' %}" class="nav-link">Admin panel</a></button>
+                {% endif %}
+              {% else %}
+                <button class="rounded-circle"><a href="{% url 'login' %}" class="nav-link">Login</a></button>
+                <button class="rounded-circle"><a href="{% url 'register' %}" class="nav-link">Register</a></button>
+              {% endif %}
             </div>
           </div>
-        <!-- Right side -->
-        <div class="right-section d-flex align-items-center">
-          {% if user.is_authenticated %}
-              <a href="{% url 'dashboard' %}" class="nav-link text-dark">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;"><br>
-                {{ user.firstname }}
-              </a>
-            
-            <button class="rounded-circle"><a href="{% url 'logout' %}" class="nav-link">Logout</a></button>
-            {% if user.is_staff %}
-              <button class="rounded-circle"><a href="{% url 'admin_panel' %}" class="nav-link">Admin panel</a></button>
-            {% endif %}
-          {% else %}
-            <button class="rounded-circle"><a href="{% url 'login' %}" class="nav-link">Login</a></button>
-            <button class="rounded-circle"><a href="{% url 'register' %}" class="nav-link">Register</a></button>
-          {% endif %}
         </div>
-    </div>
-  </div>
-</nav> 
+      </nav>
+      <br><br><br>
 
-    <div class="flex-grow-1">
 
-      <!-- <p style="background-image: url('background_image.jpg');"></p> -->
       {% block content %}
         <!-- Your content goes here -->
       {% endblock %}
-    </div><br><br>
-    
-    <section class="fixed-bottom">
-      <footer class="pt-2 pb-2  bg-success text-light">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-12 col-md-8">
-              <h4> Contact Number: 0123456789</h4>
-            </div>
-            <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-end">
-                © 2022 Fresh Food. All Rights Reserved
-            </div>
+      
+      <br>
+     <!-- Remove the container if you want to extend the Footer to full width. -->
+
+  <!-- Footer -->
+  <footer
+          class="text-center text-lg-start text-white"
+          style="background-color: #3f9474"
+          >
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: Links -->
+      <section class="">
+        <!--Grid row-->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">
+             Fresh Food
+            </h6>
+            <p>
+              "Savor the taste of freshness with <span style="font-family: Georgia, 'Times New Roman', Times, serif;">"FRESH FOOD"p</span>, where our handpicked selection of farm-fresh delights transforms every bite into a celebration of vibrant flavors and wholesome goodness."           
+             </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+            <p>
+              <a class="text-white">MDBootstrap</a>
+            </p>
+            <p>
+              <a class="text-white">MDWordPress</a>
+            </p>
+            <p>
+              <a class="text-white">BrandFlow</a>
+            </p>
+            <p>
+              <a class="text-white">Bootstrap Angular</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+            <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+            <p><i class="fas fa-envelope mr-3"></i> freshfood@gmail.com</p>
+            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+
+            <!-- Facebook -->
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #3b5998"
+               href="#!"
+               role="button"
+               ><i class="fab fa-facebook-f"></i
+              ></a>
+
+            <!-- Twitter -->
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #55acee"
+               href="#!"
+               role="button"
+               ><i class="fab fa-twitter"></i
+              ></a>
+
+            <!-- Google -->
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #dd4b39"
+               href="#!"
+               role="button"
+               ><i class="fab fa-google"></i
+              ></a>
+
+            <!-- Instagram -->
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #ac2bac"
+               href="#!"
+               role="button"
+               ><i class="fab fa-instagram"></i
+              ></a>
           </div>
         </div>
-      </footer>
-    </section>
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous">
-        
-    </script>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div
+         class="text-center p-3"
+         style="background-color: rgba(0, 0, 0, 0.2)"
+         >
+      © 2020 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/"
+         >Fresh Food.com</a
+        >
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+<!-- End of .container -->
 
   </body>
 </html>
 
-
-
-
-
-<!-- <head>
-  <link rel="stylesheet"
-      href=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css ">
-    <link rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-</head> -->
-<!-- <div class="container">
- <div class="row">
-    {% for category in categories %}
-
-    <div class="col-md-6 mb-4">
-      <div class="card" style="width: 100%;">
-        <a href="{{category.get_url}}">
-          <img class="card-img-top" src="{{category.cart_image.url}}" alt="Card image cap"></a>
-          <div class="card-body">
-            <h5 class="card-title text-center"  >{{category.category_name}}</h5>
-            <b><p class="card-text text-center">Fresh, Organic Delights</p></b>
-            <p>{{category.description}}</p>
-            <a href="{{category.get_url}}" class="btn btn-primary">View</a> 
-          </div>
-        
-      </div>
-    </div>
-
-    {% endfor %}
- </div>
-</div> -->

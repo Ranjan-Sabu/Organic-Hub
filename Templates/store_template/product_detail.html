@@ -52,6 +52,9 @@ store
                 <!-- <a href="#!" class="text-dark fw-bold">Cancel</a> -->
                 {% if single_product.stoke <= 0.5 %}
                   <h2 class='text-danger'>out of stock</h2>
+                  <button class="btn btn-primary rounded-pill">
+                    <a href="{% url 'store' %}" class="text-decoration-none text-white">Back to Shopping</a>
+                  </button>                  
                  {% else %}
                    {% if in_cart %}
                   <a class="btn btn-success"  href="#"><span class="text">Added To Cart</span> <i class="fas fa-check"></i></a>

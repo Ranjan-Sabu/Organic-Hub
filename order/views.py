@@ -164,29 +164,29 @@ def order_complete(request):
 from django.http import JsonResponse
 
 
-# def check_product_availability(request):
-#     try:
-#         current_user = request.user
-#         cart_items = CartItem.objects.filter(user=current_user)
+def check_product_availability(request):
+    try:
+        current_user = request.user
+        cart_items = CartItem.objects.filter(user=current_user)
 
-#         unavailable_products = []
+        unavailable_products = []
 
-#         for cart_item in cart_items:
-#             product = Product.objects.get(id=cart_item.product.id)
-#             if product.stoke < cart_item.quantity:
-#                 unavailable_products.append({
-#                     "product_id": product.id,
-#                     "product_name": product.product_name,
-#                     "available_quantity": product.stoke,
-#                 })
+        for cart_item in cart_items:
+            product = Product.objects.get(id=cart_item.product.id)
+            if product.stoke < cart_item.quantity:
+                unavailable_products.append({
+                    "product_id": product.id,
+                    "product_name": product.product_name,
+                    "available_quantity": product.stoke,
+                })
 
-#         if unavailable_products:
-#             # If there are unavailable products, return a JSON response with the list of unavailable products
-#             return JsonResponse({"unavailable_products": unavailable_products})
-#         else:
-#             # If all products are available, return a success JSON response
-#             return JsonResponse({"success": "All products are available"})
+        if unavailable_products:
+            # If there are unavailable products, return a JSON response with the list of unavailable products
+            return JsonResponse({"unavailable_products": unavailable_products})
+        else:
+            # If all products are available, return a success JSON response
+            return JsonResponse({"success": "All products are available"})
 
-#     except Exception as e:
-#         # Handle any exceptions and return an error JSON response
-#         return JsonResponse({"error": str(e)})
+    except Exception as e:
+        # Handle any exceptions and return an error JSON response
+        return JsonResponse({"error": str(e)})
