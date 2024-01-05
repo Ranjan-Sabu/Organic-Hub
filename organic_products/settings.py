@@ -151,5 +151,4 @@ EMAIL_HOST_PASSWORD = "hzacdomzjjxkowcu"
 EMAIL_USE_TLS = True
 
 
-# razor_pay_key_id = 'rzp_test_g0pvGyn9XWHtYZ'
-# key_secret = 'Ro8YkCdLcfzunRVBTj8njvXL'
+

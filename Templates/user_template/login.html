@@ -5,51 +5,6 @@ login
 {% endblock %}
 
 {% block content %}
-<!-- <section class="vh-100 gradient-custom">
-  {% if request.GET.command == 'verification' %}
-    <div class="container bg-dark text-white alert alert-info text-center" role="alert" style="border-radius: 1rem;">
-      We have sent a verification message to your email address [{{request.GET.email}}]<br><br>
-      Already verified? <a href="{% url 'login' %}">Login</a>
-    </div>
-  {% else %}
-    <div class="container">
-      <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-            <div class="card-body p-3 text-center">
-              {% include 'user_template/alert.html' %}
-
-              <div class="mb-md-3 mt-md-2 pb-2">
-                <h2 class="fw-bold mb-2 text-uppercase" style="font-size: 1.5rem;">Login</h2>
-                <p class="text-white-50 mb-3" style="font-size: 0.9rem;">Please enter your login and password!</p>
-                <form action="{% url 'login' %}" method="POST">
-                  {% csrf_token %}
-                  <div class="form-outline form-white mb-3">
-                    <input type="email" id="typeEmailX" class="form-control form-control-lg" name="email" />
-                    <label class="form-label" for="typeEmailX">Email</label>
-                  </div>
-
-                  <div class="form-outline form-white mb-3">
-                    <input type="password" id="typePasswordX" class="form-control form-control-lg" name="password" />
-                    <label class="form-label" for="typePasswordX">Password</label>
-                  </div>
-
-                  <p class="small mb-3 pb-lg-1"><a class="text-white-50" href="{% url 'forgotPassword' %}">Forgot password?</a></p>
-
-                  <button class="btn btn-outline-light btn-lg px-4" type="submit">Login</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  {% endif %}
-</section> -->
-
-
-
-
 <!-- Section: Design Block -->
 <section class="background-radial-gradient overflow-hidden">
   <style>
@@ -103,15 +58,17 @@ login
   <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
     <div class="row gx-lg-5 align-items-center mb-5">
       <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-        <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-          The best offer <br />
-          <span style="color: hsl(218, 81%, 75%)">for your business</span>
+        <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(120, 93%, 48%)">
+          <span style="color: hsl(64, 86%, 42%)">LIVE</span> Organic For<br />
+          <span style="color: hsl(64, 80%, 39%)">LIVE</span>
+          Healthy
         </h1>
         <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Temporibus, expedita iusto veniam atque, magni tempora mollitia
-          dolorum consequatur nulla, neque debitis eos reprehenderit quasi
-          ab ipsum nisi dolorem modi. Quos?
+          "Welcome to our organic fresh farm, where every login unlocks
+           a world of wholesome goodness. Dive into a virtual orchard of the freshest produce,
+            cultivated with care for a healthier you. Join our community and experience
+             the farm-to-table journey like never before. Embrace the taste of nature with
+              each click – your journey to organic delight starts here!"
         </p>
       </div>
 
