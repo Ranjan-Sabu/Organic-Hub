@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-k4^=y-nsy)z%hfh9ne1cf5@&sddn2fm-uh(ez1sx#$#g7)76=i"
+SECRET_KEY =config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG =config('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     "carts",
     "order",
     "admin_panel",
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -94,8 +96,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ecommerce',
-        'USER': 'mysuperuser',
-        'PASSWORD': 'mysuperuser',
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
         'HOST': 'backend.cfk22qwq6bbd.ap-south-1.rds.amazonaws.com',
         'PORT': '5432',
     }
@@ -136,6 +138,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATICFILES_DIRS =[
+    'organicfood/static',
+]
 STATIC_ROOT = BASE_DIR / "static"
 
 
@@ -156,17 +162,18 @@ MESSAGE_TAGS = {
 # sndp configuration
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "ranjansabur@gmail.com"
-EMAIL_HOST_PASSWORD = "hzacdomzjjxkowcu"
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 
-AWS_ACCESS_KEY_ID = 'AKIA5LHILIOBR5ZSJHQH'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS')
 AWS_STORAGE_BUCKET_NAME = 'organicfood'
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = 'ap-south-1'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL =  None
 AWS_S3_VERITY = True
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'organicfood.media_storage.MediaStorage'

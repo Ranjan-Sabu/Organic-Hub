@@ -36,6 +36,7 @@ body{
 </div>
 
 <div class="container mt-4">
+  {% include 'user_template/alert.html' %}
   <div class="row">
     <div class="col-12">
       <div class="heading-div text-center text-light">
@@ -51,7 +52,6 @@ body{
         <div class='category-container'>
           <img class="d-block w-100 img-fluid" src="{{ category.cart_image.url }}" alt="{{ category.category_name }}">
           <div class="carousel-caption d-none d-md-block">
-            {% include 'user_template/alert.html' %}
             <h1 class="text-center d-sm-none d-md-block">{{ category.category_name }}</h1>
             <h4 class="text-center d-sm-none d-md-block">{{ category.description }}</h4>
             <a href="{{ category.get_url }}" class="btn btn-primary btn-sm d-block mx-auto mt-2 d-sm-none d-md-block">View</a>
