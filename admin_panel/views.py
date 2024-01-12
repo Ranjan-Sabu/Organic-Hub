@@ -105,7 +105,7 @@ def edit_Product(request, id):
         form = ProductUpdateForm(instance=product)
 
     context = {
-        "form": form,
+        "form": form, 
     }
     return render(request, "admin_template/product_update_form.html", context)
 

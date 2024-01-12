@@ -26,7 +26,7 @@ SECRET_KEY =config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =config('DEBUG')
 
-ALLOWED_HOSTS = ['52.66.196.233']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['52.66.196.233']
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
+    'whitenoise.runserver_nostatic',
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -44,18 +45,19 @@ INSTALLED_APPS = [
     "carts",
     "order",
     "admin_panel",
+    "storages",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
 ROOT_URLCONF = "organic_products.urls"
 
 TEMPLATES = [
@@ -162,7 +164,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
-
 
 
 AWS_ACCESS_KEY=config('AWS_ACCESS_KEY')
